@@ -70,16 +70,48 @@ name = "wagtail_bucketav"
 [tool.flit.sdist]
 exclude = [
     "wagtail_bucketav/static_src",
-    "wagtail_bucketav/test",
     "wagtail_bucketav/tests",
+    "wagtail_bucketav/testapp",
     "wagtail_bucketav/static/.gitignore",
     "docs",
-    ".*",
     "*.js",
     "*.json",
     "*.ini",
     "*.yml",
+    ".editorconfig"
 ]
 include = [
     "wagtail_bucketav/static"
 ]
+
+[tool.isort]
+known_first_party = "wagtail_bucketav"
+profile = "black"
+skip = "migrations,node_modules,venv"
+sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+default_section = "THIRDPARTY"
+multi_line_output = 3
+include_trailing_comma = "True"
+force_grid_wrap = 0
+use_parentheses = "True"
+
+[tool.black]
+line_length = 88
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | __pycache__
+    | _build
+    | build
+    | dist
+    | docs
+    | venv
+    | node_modules
+  )/
+)
+'''
