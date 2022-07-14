@@ -9,9 +9,7 @@ jobs:
   publish_to_pypi:
     name: 📦 Publish to PyPi
     runs-on: ubuntu-latest
-    env:
-      FLIT_USERNAME: ${{ secrets.PYPI_USER }}
-      FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v3
@@ -31,5 +29,15 @@ jobs:
           flit install --symlink
       - name: 🏗️ Build
         run: flit build
-      - name: 🚀 Publish
+      - name: 🚀 Publish to test PyPi
+        env:
+          FLIT_USERNAME: ${{ secrets.PYPI_TEST_USER }}
+          FLIT_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
+          FLIT_INDEX_URL: https://test.pypi.org/legacy/
+        run: flit publish
+      - name: 🚀 Publish to live PyPi
+        env:
+          FLIT_USERNAME: ${{ secrets.PYPI_USER }}
+          FLIT_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          FLIT_INDEX_URL: https://upload.pypi.org/legacy/
         run: flit publish
