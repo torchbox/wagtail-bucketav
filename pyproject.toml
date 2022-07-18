@@ -37,6 +37,7 @@ requires-python = ">=3.7"
 dependencies = [
     "Django>=3.0,<4.1",
     "Wagtail>=2.14,<4.0",
+    "django-sns-view>=0.1.2,<0.2.0"
 ]
 
 [project.optional-dependencies]
