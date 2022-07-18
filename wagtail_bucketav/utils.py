@@ -8,4 +8,4 @@ def get_object_for_key(file_key):
     if image_for_file:
         return image_for_file
 
-    return get_document_model().objects.filter(file=file_key()).first()
+    return get_document_model().objects.filter(file=file_key).first()
