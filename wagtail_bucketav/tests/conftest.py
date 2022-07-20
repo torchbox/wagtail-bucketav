@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import pytest
 from django.urls import reverse
-from wagtail import hooks
+from wagtail.core import hooks
 
 
 @pytest.fixture
