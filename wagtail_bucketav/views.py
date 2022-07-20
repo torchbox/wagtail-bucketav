@@ -2,7 +2,7 @@ import json
 import logging
 
 from django_sns_view.views import SNSEndpoint
-from wagtail import hooks
+from wagtail.core import hooks
 from wagtail.documents import get_document_model
 from wagtail.images import get_image_model
 

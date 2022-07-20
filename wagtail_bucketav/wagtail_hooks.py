@@ -1,6 +1,6 @@
 import logging
 
-from wagtail import hooks
+from wagtail.core import hooks
 
 from .models import FileScanStatus
 
