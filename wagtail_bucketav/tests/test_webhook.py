@@ -11,11 +11,10 @@ def test_successful_image_ping(sns_request, bucketav_scan_receiver):
     response = sns_request({"key": str(image.file), "status": "clean"})
     assert response.status_code == 200
     assert bucketav_scan_receiver.call_count == 1
-    assert bucketav_scan_receiver.call_args.kwargs["sender"] == get_image_model()
-    assert bucketav_scan_receiver.call_args.kwargs["instance"] == image
+    assert bucketav_scan_receiver.call_args[1]["sender"] == get_image_model()
+    assert bucketav_scan_receiver.call_args[1]["instance"] == image
     assert (
-        bucketav_scan_receiver.call_args.kwargs["file_scan_status"]
-        == FileScanStatus.CLEAN
+        bucketav_scan_receiver.call_args[1]["file_scan_status"] == FileScanStatus.CLEAN
     )
 
 
@@ -24,11 +23,10 @@ def test_successful_document_ping(sns_request, bucketav_scan_receiver):
     response = sns_request({"key": str(document.file), "status": "clean"})
     assert response.status_code == 200
     assert bucketav_scan_receiver.call_count == 1
-    assert bucketav_scan_receiver.call_args.kwargs["sender"] == get_document_model()
-    assert bucketav_scan_receiver.call_args.kwargs["instance"] == document
+    assert bucketav_scan_receiver.call_args[1]["sender"] == get_document_model()
+    assert bucketav_scan_receiver.call_args[1]["instance"] == document
     assert (
-        bucketav_scan_receiver.call_args.kwargs["file_scan_status"]
-        == FileScanStatus.CLEAN
+        bucketav_scan_receiver.call_args[1]["file_scan_status"] == FileScanStatus.CLEAN
     )
 
 
