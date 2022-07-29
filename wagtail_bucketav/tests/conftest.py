@@ -3,7 +3,8 @@ from unittest.mock import Mock
 
 import pytest
 from django.urls import reverse
-from wagtail.core import hooks
+
+from wagtail_bucketav.signals import bucketav_scan
 
 
 @pytest.fixture
@@ -25,14 +26,8 @@ def sns_request(db, client, settings):
 
 
 @pytest.fixture
-def after_bucketav_image_scan():
+def bucketav_scan_receiver():
     hook = Mock()
-    with hooks.register_temporarily("after_bucketav_image_scan", hook):
-        yield hook
-
-
-@pytest.fixture
-def after_bucketav_document_scan():
-    hook = Mock()
-    with hooks.register_temporarily("after_bucketav_document_scan", hook):
-        yield hook
+    bucketav_scan.connect(hook)
+    yield hook
+    bucketav_scan.disconnect(hook)
