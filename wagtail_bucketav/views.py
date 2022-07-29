@@ -2,25 +2,15 @@ import json
 import logging
 
 from django_sns_view.views import SNSEndpoint
-from wagtail.core import hooks
-from wagtail.documents import get_document_model
-from wagtail.images import get_image_model
 
 from .models import FileScanStatus
+from .signals import bucketav_scan
 from .utils import get_object_for_key
 
 logger = logging.getLogger("wagtail_bucketav")
 
 
 class BucketAVWebhookView(SNSEndpoint):
-    @staticmethod
-    def get_hook_name(instance):
-        if isinstance(instance, get_image_model()):
-            return "after_bucketav_image_scan"
-        elif isinstance(instance, get_document_model()):
-            return "after_bucketav_document_scan"
-        return None
-
     def handle_message(self, message, payload):
         message = json.loads(message)  # Actually parse the JSON
 
@@ -38,13 +28,8 @@ class BucketAVWebhookView(SNSEndpoint):
             logger.error("Received ping for unknown file key=%s", file_key)
             return
 
-        hook_name = self.get_hook_name(instance)
-
-        if hook_name is None:
-            logger.error(
-                "Received ping for unknown model type=%s", instance.__class__.__name__
-            )
-            return
-
-        for fn in hooks.get_hooks(hook_name):
-            fn(instance, file_scan_status)
+        bucketav_scan.send(
+            sender=instance.__class__,
+            instance=instance,
+            file_scan_status=file_scan_status,
+        )
