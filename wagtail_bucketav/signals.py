@@ -1,3 +1,3 @@
 from django.dispatch import Signal
 
-bucketav_scan = Signal()
+scan_result_received = Signal()
