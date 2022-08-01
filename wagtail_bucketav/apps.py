@@ -6,7 +6,7 @@ class WagtailBucketAVAppConfig(AppConfig):
     name = "wagtail_bucketav"
 
     def ready(self):
+        from .signal_handlers import log_scanned_instance
         from .signals import scan_result_received
-        from .utils import log_scanned_instance
 
         scan_result_received.connect(log_scanned_instance)
