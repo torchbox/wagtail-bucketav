@@ -12,5 +12,7 @@ def get_object_for_key(file_key):
         model = apps.get_model(model_string)
 
         filters = reduce(operator.or_, [Q(**{field: file_key}) for field in fields])
-        if instance := model.objects.filter(filters).first():
+
+        instance = model.objects.filter(filters).first()
+        if instance is not None:
             return instance
