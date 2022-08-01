@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import pytest
 from django.urls import reverse
 
-from wagtail_bucketav.signals import bucketav_scan
+from wagtail_bucketav.signals import scan_result_received
 
 
 @pytest.fixture
@@ -26,8 +26,8 @@ def sns_request(db, client, settings):
 
 
 @pytest.fixture
-def bucketav_scan_receiver():
+def scan_result_received_receiver():
     hook = Mock()
-    bucketav_scan.connect(hook)
+    scan_result_received.connect(hook)
     yield hook
-    bucketav_scan.disconnect(hook)
+    scan_result_received.disconnect(hook)
