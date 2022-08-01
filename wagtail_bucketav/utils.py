@@ -1,11 +1,16 @@
-from wagtail.documents import get_document_model
-from wagtail.images import get_image_model
+import operator
+from functools import reduce
+
+from django.apps import apps
+from django.db.models import Q
+
+from .settings import bucketav_models
 
 
 def get_object_for_key(file_key):
-    image_for_file = get_image_model().objects.filter(file=file_key).first()
+    for model_string, fields in bucketav_models().items():
+        model = apps.get_model(model_string)
 
-    if image_for_file:
-        return image_for_file
-
-    return get_document_model().objects.filter(file=file_key).first()
+        filters = reduce(operator.or_, [Q(**{field: file_key}) for field in fields])
+        if instance := model.objects.filter(filters).first():
+            return instance
