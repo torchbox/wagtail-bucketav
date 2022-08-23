@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -16,7 +17,12 @@ class BucketAVMixin(models.Model):
         default=FileScanStatus.NOT_SCANNED,
         verbose_name=_("bucketAV scan status"),
     )
-    last_scanned_at = models.DateTimeField(null=True)
+    bucketav_last_scanned_at = models.DateTimeField(null=True)
+
+    def update_scan_status(self, scan_status):
+        self.bucketav_scan_status = scan_status
+        self.bucketav_last_scanned_at = timezone.now()
+        self.save()
 
     class Meta:
         abstract = True

@@ -1,7 +1,6 @@
 from django.db import models
-
-from wagtail.documents.models import Document, AbstractDocument
-from wagtail.images.models import Image, AbstractImage, AbstractRendition
+from wagtail.documents.models import AbstractDocument, Document
+from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
 from wagtail_bucketav.models import BucketAVMixin
 

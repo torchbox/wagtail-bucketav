@@ -3,7 +3,7 @@ import logging
 
 from django_sns_view.views import SNSEndpoint
 
-from .models import FileScanStatus
+from .models import BucketAVMixin, FileScanStatus
 from .signals import scan_result_received
 from .utils import get_object_for_key
 
@@ -27,6 +27,9 @@ class BucketAVWebhookView(SNSEndpoint):
         if instance is None:
             logger.error("Received ping for unknown file key=%s", file_key)
             return
+
+        if isinstance(instance, BucketAVMixin):
+            instance.update_scan_status(file_scan_status)
 
         scan_result_received.send(
             sender=instance.__class__,
