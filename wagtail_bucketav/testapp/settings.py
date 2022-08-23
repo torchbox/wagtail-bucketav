@@ -87,8 +87,7 @@ STATIC_URL = "/static/"
 
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
-# TODO: Unset when we have some model definitions in testapp.models :)
-# WAGTAILIMAGES_IMAGE_MODEL = "testapp.CustomImage"
-# WAGTAILDOCS_DOCUMENT_MODEL = "testapp.CustomDocument"
+WAGTAILIMAGES_IMAGE_MODEL = "testapp.CustomImage"
+WAGTAILDOCS_DOCUMENT_MODEL = "testapp.CustomDocument"
 
 DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
