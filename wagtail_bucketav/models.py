@@ -14,7 +14,9 @@ class BucketAVMixin(models.Model):
         max_length=max(len(label) for label in FileScanStatus.labels),
         choices=FileScanStatus.choices,
         default=FileScanStatus.NOT_SCANNED,
+        verbose_name=_("bucketAV scan status"),
     )
+    last_scanned_at = models.DateTimeField(null=True)
 
     class Meta:
         abstract = True
