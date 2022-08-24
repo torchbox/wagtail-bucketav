@@ -22,12 +22,18 @@ def get_wagtailcore_dependency():
     return ("wagtailcore", "0069_log_entry_jsonfield")
 
 
+def get_taggit_dependency():
+    if WAGTAIL_VERSION < (2, 16):
+        return ('taggit', '0003_taggeditem_add_unique_index')
+    return ("taggit", "0004_alter_taggeditem_content_type_alter_taggeditem_tag")
+
+
 class Migration(migrations.Migration):
 
     initial = True
 
     dependencies = [
-        ("taggit", "0004_alter_taggeditem_content_type_alter_taggeditem_tag"),
+        get_taggit_dependency(),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         get_wagtailcore_dependency(),
     ]
