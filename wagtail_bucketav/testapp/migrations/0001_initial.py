@@ -24,7 +24,7 @@ def get_wagtailcore_dependency():
 
 def get_taggit_dependency():
     if WAGTAIL_VERSION < (2, 16):
-        return ('taggit', '0003_taggeditem_add_unique_index')
+        return ("taggit", "0003_taggeditem_add_unique_index")
     return ("taggit", "0004_alter_taggeditem_content_type_alter_taggeditem_tag")
 
 
