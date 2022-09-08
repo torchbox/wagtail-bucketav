@@ -48,7 +48,8 @@ def test_ping_unknown_status(sns_request, scan_result_received_receiver):
     assert scan_result_received_receiver.call_count == 0
 
 
-def test_image_status_updated(sns_request):
+@pytest.mark.django_db
+def test_image_status_updated(sns_request, scan_status_signal_handler):
     image = wagtail_factories.ImageFactory(
         bucketav_scan_status=FileScanStatus.NOT_SCANNED,
         bucketav_last_scanned_at=None,

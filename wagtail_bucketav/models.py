@@ -19,7 +19,7 @@ class BucketAVMixin(models.Model):
     )
     bucketav_last_scanned_at = models.DateTimeField(null=True)
 
-    def update_scan_status(self, scan_status):
+    def update_bucketav_scan_status(self, scan_status):
         self.bucketav_scan_status = scan_status
         self.bucketav_last_scanned_at = timezone.now()
         self.save()

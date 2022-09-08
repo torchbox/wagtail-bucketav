@@ -1,5 +1,5 @@
 from . import logger
-from .models import FileScanStatus
+from .models import BucketAVMixin, FileScanStatus
 
 
 def log_scanned_instance(sender, instance, file_scan_status, **kwargs):
@@ -12,3 +12,8 @@ def log_scanned_instance(sender, instance, file_scan_status, **kwargs):
             instance.id,
             file_scan_status,
         )
+
+
+def update_scan_status_for_instance(sender, instance, file_scan_status, **kwargs):
+    if isinstance(instance, BucketAVMixin):
+        instance.update_bucketav_scan_status(file_scan_status)
