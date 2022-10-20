@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+manage.py
+wagtail_bucketav-test.sqlite

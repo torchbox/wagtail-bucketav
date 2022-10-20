@@ -51,7 +51,7 @@ test = [
     "pytest-mock==3.8.2",
     "pytest-django==4.5.2",
     "pytest==7.1.2",
-    "wagtail-factories==2.1.0",
+    "wagtail-factories==3.1.0",
     "dj-inmemorystorage==2.1.0"
 ]
 documentation = [

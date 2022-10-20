@@ -4,6 +4,7 @@ from unittest.mock import Mock
 import pytest
 from django.urls import reverse
 
+from wagtail_bucketav.signal_handlers import update_scan_status_for_instance
 from wagtail_bucketav.signals import scan_result_received
 
 
@@ -31,3 +32,10 @@ def scan_result_received_receiver():
     scan_result_received.connect(hook)
     yield hook
     scan_result_received.disconnect(hook)
+
+
+@pytest.fixture
+def scan_status_signal_handler():
+    scan_result_received.connect(update_scan_status_for_instance)
+    yield update_scan_status_for_instance
+    scan_result_received.disconnect(update_scan_status_for_instance)
