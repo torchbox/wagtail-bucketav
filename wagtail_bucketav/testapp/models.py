@@ -1,7 +1,13 @@
 from django.db import models
 
+from ..models import BucketAVMixin
+
 
 class Document(models.Model):
+    file = models.FileField()
+
+
+class DocumentWithBucketAVMixin(BucketAVMixin, models.Model):
     file = models.FileField()
 
 

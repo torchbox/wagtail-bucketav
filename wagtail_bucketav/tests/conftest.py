@@ -6,7 +6,7 @@ from django.core.files.base import ContentFile
 from django.urls import reverse
 
 from ..signals import scan_result_received
-from ..testapp.models import Document
+from ..testapp.models import Document, DocumentWithBucketAVMixin
 
 
 @pytest.fixture
@@ -50,3 +50,8 @@ def django_file() -> ContentFile:
 @pytest.fixture
 def document_model(django_file) -> Document:
     return Document.objects.create(file=django_file)
+
+
+@pytest.fixture
+def document_with_av_mixin_model(django_file) -> DocumentWithBucketAVMixin:
+    return DocumentWithBucketAVMixin.objects.create(file=django_file)
