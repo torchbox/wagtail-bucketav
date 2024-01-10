@@ -2,9 +2,11 @@ import json
 from unittest.mock import Mock
 
 import pytest
+from django.core.files.base import ContentFile
 from django.urls import reverse
 
-from wagtail_bucketav.signals import scan_result_received
+from ..signals import scan_result_received
+from ..testapp.models import Document
 
 
 @pytest.fixture
@@ -31,3 +33,20 @@ def scan_result_received_receiver():
     scan_result_received.connect(hook)
     yield hook
     scan_result_received.disconnect(hook)
+
+
+@pytest.fixture
+def django_file() -> ContentFile:
+    file = ContentFile(
+        # N.B. This GIF content is a copy-paste from:
+        # https://docs.djangoproject.com/en/4.2/topics/testing/tools/#django.test.Client.post
+        b"GIF89a\x01\x00\x01\x00\x00\x00\x00!\xf9\x04\x01\x00\x00\x00"
+        b"\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x01\x00\x00",
+        name="myimage.gif",
+    )
+    return file
+
+
+@pytest.fixture
+def document_model(django_file) -> Document:
+    return Document.objects.create(file=django_file)

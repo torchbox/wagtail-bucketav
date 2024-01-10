@@ -1,24 +1,13 @@
 import pytest
-import wagtail_factories
-from wagtail.documents import get_document_model_string
 
 from wagtail_bucketav import utils
 
 
 @pytest.mark.django_db
-def test_get_image_with_key():
-    image = wagtail_factories.ImageFactory()
-    file_key = str(image.file)
+def test_get_document_with_key(document_model):
+    file_key = str(document_model.file)
     discovered_object = utils.get_object_for_key(file_key)
-    assert discovered_object == image
-
-
-@pytest.mark.django_db
-def test_get_document_with_key():
-    document = wagtail_factories.DocumentFactory()
-    file_key = str(document.file)
-    discovered_object = utils.get_object_for_key(file_key)
-    assert discovered_object == document
+    assert discovered_object == document_model
 
 
 @pytest.mark.django_db
@@ -28,31 +17,28 @@ def test_get_unknown_file_key():
 
 
 @pytest.mark.django_db
-def test_no_models(settings):
+def test_no_models(settings, document_model):
     settings.WAGTAIL_BUCKETAV_MODELS = {}
-    image = wagtail_factories.ImageFactory()
-    file_key = str(image.file)
+    file_key = str(document_model.file)
     discovered_object = utils.get_object_for_key(file_key)
     assert discovered_object is None
 
 
 @pytest.mark.django_db
-def test_unknown_model(settings):
+def test_model_not_covered_by_settings(settings, document_model):
     settings.WAGTAIL_BUCKETAV_MODELS = {
-        get_document_model_string(): ["file"],
+        "testapp.Image": ["file"],
     }
-    image = wagtail_factories.ImageFactory()
-    file_key = str(image.file)
+    file_key = str(document_model.file)
     discovered_object = utils.get_object_for_key(file_key)
     assert discovered_object is None
 
 
 @pytest.mark.django_db
-def test_specific_model(settings):
+def test_unrelated_model(settings, document_model):
     settings.WAGTAIL_BUCKETAV_MODELS = {
-        get_document_model_string(): ["file"],
+        "testapp.MyModel": ["name"],
     }
-    document = wagtail_factories.DocumentFactory()
-    file_key = str(document.file)
+    file_key = str(document_model.file)
     discovered_object = utils.get_object_for_key(file_key)
-    assert discovered_object == document
+    assert discovered_object is None

@@ -1,14 +1,15 @@
+from typing import TYPE_CHECKING
+
 from django.conf import settings
-from wagtail.documents import get_document_model_string
-from wagtail.images import get_image_model_string
 
-_DEFAULT_WAGTAIL_BUCKETAV_MODELS = {
-    get_image_model_string(): ["file"],
-    get_document_model_string(): ["file"],
-}
+if TYPE_CHECKING:
+    from typing_extensions import Dict, List, TypeAlias
+
+    DjangoModelString: TypeAlias = str
+    BucketAVModelDefinition: TypeAlias = Dict[DjangoModelString, List[str]]
+else:
+    BucketAVModelDefinition = dict
 
 
-def bucketav_models():
-    return getattr(
-        settings, "WAGTAIL_BUCKETAV_MODELS", _DEFAULT_WAGTAIL_BUCKETAV_MODELS
-    )
+def bucketav_models() -> "BucketAVModelDefinition":
+    return getattr(settings, "WAGTAIL_BUCKETAV_MODELS", {})

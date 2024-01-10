@@ -1,7 +1,5 @@
 import os
 
-from wagtail import VERSION as WAGTAIL_VERSION
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = ["*"]
@@ -39,22 +37,12 @@ TEMPLATES = [
 INSTALLED_APPS = [
     "wagtail_bucketav",
     "wagtail_bucketav.testapp",
-    "modelcluster",
-    "taggit",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    "wagtail.admin",
-    "wagtail" if WAGTAIL_VERSION >= (3, 0) else "wagtail.core",
-    "wagtail.sites",
-    "wagtail.search",
-    "wagtail.users",
-    "wagtail.images",
-    "wagtail.documents",
-    "wagtail.contrib.modeladmin",
 ]
 
 MIDDLEWARE = [
@@ -87,8 +75,8 @@ STATIC_URL = "/static/"
 
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
-# TODO: Unset when we have some model definitions in testapp.models :)
-# WAGTAILIMAGES_IMAGE_MODEL = "testapp.CustomImage"
-# WAGTAILDOCS_DOCUMENT_MODEL = "testapp.CustomDocument"
+WAGTAIL_BUCKETAV_MODELS = {
+    "testapp.Document": ["file"],
+}
 
 DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"

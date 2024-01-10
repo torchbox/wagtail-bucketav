@@ -1,8 +1,17 @@
+from typing import TYPE_CHECKING
+
 from . import logger
 from .models import FileScanStatus
 
+if TYPE_CHECKING:
+    from typing import Type
 
-def log_scanned_instance(sender, instance, file_scan_status, **kwargs):
+    from django.db import models
+
+
+def log_scanned_instance(
+    sender, instance: "Type[models.Model]", file_scan_status: FileScanStatus, **kwargs
+) -> None:
     if file_scan_status == FileScanStatus.ERRORED:
         logger.error("BucketAV scan failed type=%s id=%d", sender.__name__, instance.id)
     else:
