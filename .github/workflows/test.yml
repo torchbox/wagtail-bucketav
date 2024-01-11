@@ -38,13 +38,35 @@ jobs:
     strategy:
       matrix:
         include:
-          - django-version: "Django>=4.0,<5.0"
-            python-version: 3.9
+          # Django 5.x supports Python 3.10, 3.11, and 3.12
+          # https://docs.djangoproject.com/en/5.0/releases/5.0/#python-compatibility
+          - django-version: "Django>=5.0,<6.0"
+            python-version: "3.12"
             latest: true
+          - django-version: "Django>=5.0,<6.0"
+            python-version: "3.11"
+          - django-version: "Django>=5.0,<6.0"
+            python-version: "3.10"
+          # Django 4.2 supports Python 3.8, 3.9, 3.10, 3.11, and 3.12
+          # https://docs.djangoproject.com/en/4.2/releases/4.2/#python-compatibility
+          - django-version: "Django>=4.2,<5.0"
+            python-version: "3.12"
+          - django-version: "Django>=4.2,<5.0"
+            python-version: "3.11"
+          - django-version: "Django>=4.2,<5.0"
+            python-version: "3.10"
+          - django-version: "Django>=4.2,<5.0"
+            python-version: "3.9"
+          - django-version: "Django>=4.2,<5.0"
+            python-version: "3.8"
+          # Django 3.2 supports Python 3.8, 3.9, and 3.10
+          # https://docs.djangoproject.com/en/3.2/releases/3.2/#python-compatibility
           - django-version: "Django>=3.2,<4.0"
-            python-version: 3.9
+            python-version: "3.10"
           - django-version: "Django>=3.2,<4.0"
-            python-version: 3.8
+            python-version: "3.9"
+          - django-version: "Django>=3.2,<4.0"
+            python-version: "3.8"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
