@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class WagtailBucketAVAppConfig(AppConfig):
+class DjangoBucketAVAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
-    name = "wagtail_bucketav"
+    name = "django_bucketav"
 
     def ready(self) -> None:
         from .signal_handlers import (

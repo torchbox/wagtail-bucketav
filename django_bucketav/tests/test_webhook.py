@@ -2,8 +2,7 @@ import datetime as dt
 
 import pytest
 
-from wagtail_bucketav.models import FileScanStatus
-
+from ..models import FileScanStatus
 from ..testapp.models import Document
 
 
@@ -65,7 +64,7 @@ def test_successful_document_with_av_mixin_ping(
     assert document_with_av_mixin_model.bucketav_last_scanned_at is None
 
     # Test setup:
-    settings.WAGTAIL_BUCKETAV_MODELS = {
+    settings.DJANGO_BUCKETAV_MODELS = {
         "testapp.DocumentWithBucketAVMixin": ["file"],
     }
     time_machine.move_to(dt.datetime(2024, 1, 10))

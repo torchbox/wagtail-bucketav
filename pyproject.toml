@@ -3,7 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "wagtail-bucketav"
+name = "django-bucketav"
 authors = [
     {name = "Jake Howard", email = "jake.howard@torchbox.com"},
     {name = "Nick Morton", email = "nick.moreton@torchbox.com"},
@@ -63,18 +63,18 @@ documentation = [
 ]
 
 [project.urls]
-Home = "https://github.com/torchbox/wagtail-bucketav"
-Source = "https://github.com/torchbox/wagtail-bucketav"
+Home = "https://github.com/torchbox/django-bucketav"
+Source = "https://github.com/torchbox/django-bucketav"
 
 [tool.flit.module]
-name = "wagtail_bucketav"
+name = "django_bucketav"
 
 [tool.flit.sdist]
 exclude = [
-    "wagtail_bucketav/static_src",
-    "wagtail_bucketav/tests",
-    "wagtail_bucketav/testapp",
-    "wagtail_bucketav/static/.gitignore",
+    "django_bucketav/static_src",
+    "django_bucketav/tests",
+    "django_bucketav/testapp",
+    "django_bucketav/static/.gitignore",
     "docs",
     "*.js",
     "*.json",
@@ -83,11 +83,11 @@ exclude = [
     ".editorconfig"
 ]
 include = [
-    "wagtail_bucketav/static"
+    "django_bucketav/static"
 ]
 
 [tool.isort]
-known_first_party = "wagtail_bucketav"
+known_first_party = "django_bucketav"
 profile = "black"
 skip = "migrations,node_modules,venv"
 sections = "STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
@@ -122,7 +122,7 @@ exclude = '''
 # @link https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml
 python_version = "3.8"
 exclude = [
-    '^wagtail_bucketav/testapp/.*$',
+    '^django_bucketav/testapp/.*$',
 ]
 [[tool.mypy.overrides]]
 module = [

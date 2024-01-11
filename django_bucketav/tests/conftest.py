@@ -15,7 +15,7 @@ def sns_request(db, client, settings):
 
     def _do_request(message):
         return client.post(
-            reverse("wagtail_bucketav:sns-hook"),
+            reverse("django_bucketav:sns-hook"),
             {
                 "SigningCertURL": "https://sns.123.amazonaws.com",
                 "Message": json.dumps(message),

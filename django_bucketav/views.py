@@ -7,7 +7,7 @@ from .models import FileScanStatus
 from .signals import scan_result_received
 from .utils import get_object_for_key
 
-logger = logging.getLogger("wagtail_bucketav")
+logger = logging.getLogger("django_bucketav")
 
 
 class BucketAVWebhookView(SNSEndpoint):

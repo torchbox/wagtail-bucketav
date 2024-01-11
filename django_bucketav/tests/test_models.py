@@ -34,10 +34,10 @@ def test_successful_document_with_av_mixin_is_updated_on_scan_result_received_si
     assert document_with_av_mixin_model.bucketav_last_scanned_at is None
 
     # Test setup:
-    settings.WAGTAIL_BUCKETAV_MODELS = {
+    settings.DJANGO_BUCKETAV_MODELS = {
         "testapp.DocumentWithBucketAVMixin": ["file"],
     }
-    time_machine.move_to(dt.datetime(2024, 1, 10))
+    time_machine.move_to(dt.datetime(2024, 1, 10, 2, 3, 4), tick=False)
 
     # Right, let's trigger a signal...
     scan_result_received.send(
@@ -52,4 +52,4 @@ def test_successful_document_with_av_mixin_is_updated_on_scan_result_received_si
     bucketav_last_scanned_at = document_with_av_mixin_model.bucketav_last_scanned_at
     assert bucketav_last_scanned_at is not None and str(
         bucketav_last_scanned_at
-    ).startswith("2024-01-10 00:00")
+    ).startswith("2024-01-10 02:03:04")

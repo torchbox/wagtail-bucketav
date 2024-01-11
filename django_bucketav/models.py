@@ -22,7 +22,7 @@ class BucketAVMixin(models.Model):
     def update_bucketav_scan_status(self, scan_status: FileScanStatus) -> None:
         self.bucketav_scan_status = scan_status
         self.bucketav_last_scanned_at = timezone.now()
-        self.save()
+        self.save(update_fields=("bucketav_scan_status", "bucketav_last_scanned_at"))
 
     class Meta:
         abstract = True

@@ -3,8 +3,7 @@ name: "Test"
 on: push
 
 # Our test suite should cover:
-# - Compatibility with the most recent versions of Wagtail and Django
-# - Compatibility with each version of Wagtail we support, changing the Django version where possible for some additional reassurance of Django compatibility
+# - Compatibility with the most recent versions of Django
 
 jobs:
   lint:
@@ -23,9 +22,9 @@ jobs:
       - name: Run flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
-          flake8 wagtail_bucketav --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 django_bucketav --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings.
-          flake8 wagtail_bucketav --count --exit-zero --max-complexity=10 --statistics
+          flake8 django_bucketav --count --exit-zero --max-complexity=10 --statistics
       - name: Run isort
         run: isort . --check-only --diff
       - name: Run black
@@ -40,12 +39,12 @@ jobs:
         include:
           # Django 5.x supports Python 3.10, 3.11, and 3.12
           # https://docs.djangoproject.com/en/5.0/releases/5.0/#python-compatibility
-          - django-version: "Django>=5.0,<6.0"
+          - django-version: "Django>=5.0,<5.1"
             python-version: "3.12"
             latest: true
-          - django-version: "Django>=5.0,<6.0"
+          - django-version: "Django>=5.0,<5.1"
             python-version: "3.11"
-          - django-version: "Django>=5.0,<6.0"
+          - django-version: "Django>=5.0,<5.1"
             python-version: "3.10"
           # Django 4.2 supports Python 3.8, 3.9, 3.10, 3.11, and 3.12
           # https://docs.djangoproject.com/en/4.2/releases/4.2/#python-compatibility
@@ -84,7 +83,7 @@ jobs:
       - if: ${{ !matrix.latest }}
         run: pytest
       - if: ${{ matrix.latest }}
-        run: pytest --junitxml=junit/test-results.xml --cov=wagtail_bucketav
+        run: pytest --junitxml=junit/test-results.xml --cov=django_bucketav
       - if: ${{ matrix.latest }}
         uses: codecov/codecov-action@v1
         with:
