@@ -34,7 +34,7 @@ def test_successful_document_with_av_mixin_is_updated_on_scan_result_received_si
     assert document_with_av_mixin_model.bucketav_last_scanned_at is None
 
     # Test setup:
-    settings.DJANGO_BUCKETAV_MODELS = {
+    settings.BUCKETAV_MODELS = {
         "testapp.DocumentWithBucketAVMixin": ["file"],
     }
     time_machine.move_to(dt.datetime(2024, 1, 10, 2, 3, 4), tick=False)

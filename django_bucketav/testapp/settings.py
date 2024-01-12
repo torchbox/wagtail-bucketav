@@ -47,6 +47,6 @@ PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 DEFAULT_FILE_STORAGE = "inmemorystorage.InMemoryStorage"
 
 # And finally, our own package's settings:
-DJANGO_BUCKETAV_MODELS = {
+BUCKETAV_MODELS = {
     "testapp.Document": ["file"],
 }

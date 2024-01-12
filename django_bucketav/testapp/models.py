@@ -4,7 +4,7 @@ from ..models import BucketAVMixin
 
 
 class Document(models.Model):
-    # Only this model is referenced in this test app's DJANGO_BUCKETAV_MODELS settings
+    # Only this model is referenced in this test app's BUCKETAV_MODELS settings
     file = models.FileField()
 
 

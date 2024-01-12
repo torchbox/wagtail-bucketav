@@ -12,4 +12,4 @@ else:
 
 
 def bucketav_models() -> "BucketAVModelDefinition":
-    return getattr(settings, "DJANGO_BUCKETAV_MODELS", {})
+    return getattr(settings, "BUCKETAV_MODELS", {})
