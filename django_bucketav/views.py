@@ -7,16 +7,16 @@ from .models import FileScanStatus
 from .signals import scan_result_received
 from .utils import get_object_for_key
 
-logger = logging.getLogger("wagtail_bucketav")
+logger = logging.getLogger("django_bucketav")
 
 
 class BucketAVWebhookView(SNSEndpoint):
-    def handle_message(self, message, payload):
-        message = json.loads(message)  # Actually parse the JSON
+    def handle_message(self, message: str, payload) -> None:
+        message_dict = json.loads(message)  # Actually parse the JSON
 
-        file_key = message["key"]
+        file_key: str = message_dict["key"]
 
-        file_scan_status = FileScanStatus(message["status"])
+        file_scan_status = FileScanStatus(message_dict["status"])
 
         logger.debug(
             "Received ping from BucketAV key=%s status=%s", file_key, file_scan_status
